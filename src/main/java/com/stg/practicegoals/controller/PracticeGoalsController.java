@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.stg.practicegoals.model.PracticeReport;
+import com.stg.practicegoals.model.GoalsReport;
 import com.stg.practicegoals.service.PracticeReportService;
 
 @RestController
@@ -15,8 +15,8 @@ public class PracticeGoalsController {
 	private PracticeReportService practiceReportService;
 
 	@RequestMapping("/practiceresults")
-	public PracticeReport getPracticeReport() {
-		return practiceReportService.getPracticeReport();
+	public GoalsReport getPracticeReport() {
+		return practiceReportService.getGoalsReport();
 	}
 
 }
