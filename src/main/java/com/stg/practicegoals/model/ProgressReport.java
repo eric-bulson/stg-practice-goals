@@ -9,11 +9,11 @@ public class ProgressReport {
 	private Long expected;
 	private Long timeSpent;
 	
-	@JsonCreator
 	public ProgressReport(ProgressReport practiceReport){
 		
 	}
 	
+	@JsonCreator
 	public ProgressReport(@JsonProperty(value="actual", required=true) Long actual, 
 			@JsonProperty(value="expected", required=true) Long expected,
 			@JsonProperty(value="timeSpent", required=true) Long timeSpent) {
