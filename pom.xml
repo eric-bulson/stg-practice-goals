@@ -113,6 +113,22 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<groupId>org.flywaydb</groupId>
+				<artifactId>flyway-maven-plugin</artifactId>
+				<version>3.2.1</version>
+				<configuration>
+					<url>jdbc:mysql://localhost:3306</url>
+					<user>programAdmin</user>
+					<password>password1</password>
+					<schemas>
+						<schema>stg_career_stats</schema>
+					</schemas>
+					<locations>
+						<location>filesystem:/src/main/resources/db/migrations</location>
+					</locations>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 

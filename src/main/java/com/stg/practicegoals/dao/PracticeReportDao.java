@@ -72,42 +72,6 @@ public class PracticeReportDao {
 				return result;
 			}
 		});
-//		GoalsReport result = namedJdbcTemplate.execute(sql,
-//				new PreparedStatementCallback<GoalsReport>() {
-//
-//					@Override
-//					public GoalsReport doInPreparedStatement(PreparedStatement ps)
-//							throws SQLException, DataAccessException {
-//
-//						Map<String, Map<String, ProgressReport>> goalsMap = new HashMap<>();
-//
-//						ResultSet rs = ps.getResultSet();
-//						if (rs == null){
-//							throw new RuntimeException("No results were returned.");
-//						}
-//						while (rs.next()) {
-//							String practiceName = rs.getString("practiceName");
-//							if (goalsMap.containsKey(practiceName)) {
-//								goalsMap.get(practiceName).put(rs.getString("typeName"),
-//										new ProgressReport(rs.getLong("actual"), rs.getLong("expected"),
-//												rs.getLong("totalTimeInSeconds")));
-//							} else {
-//								HashMap<String, ProgressReport> newMap = new HashMap<>();
-//								newMap.put(rs.getString("typeName"), new ProgressReport(rs.getLong("actual"),
-//										rs.getLong("expected"), rs.getLong("totalTimeInSeconds")));
-//								goalsMap.put(practiceName, newMap);
-//							}
-//						}
-//
-//						Map<String, PracticeReport> practiceReports = new HashMap<>();
-//						for (String key : goalsMap.keySet()) {
-//							practiceReports.put(key, new PracticeReport(goalsMap.get(key)));
-//						}
-//						GoalsReport result = new GoalsReport(practiceReports);
-//						return result;
-//					}
-//				});
-//
 		return result;
 	}
 }
