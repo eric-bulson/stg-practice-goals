@@ -54,12 +54,11 @@ public class PracticeReportDao {
 					String practiceName = rs.getString("practiceName");
 					if (goalsMap.containsKey(practiceName)) {
 						goalsMap.get(practiceName).put(rs.getString("typeName"),
-								new ProgressReport(rs.getLong("actual"), rs.getLong("expected"),
-										rs.getLong("totalTimeInSeconds")));
+								new ProgressReport(rs.getLong("practice"),rs.getLong("type"),rs.getLong("actual"), rs.getLong("expected"),rs.getLong("totalTimeInSeconds"), null));
 					} else {
 						HashMap<String, ProgressReport> newMap = new HashMap<>();
-						newMap.put(rs.getString("typeName"), new ProgressReport(rs.getLong("actual"),
-								rs.getLong("expected"), rs.getLong("totalTimeInSeconds")));
+						newMap.put(rs.getString("typeName"), new ProgressReport(rs.getLong("practice"), rs.getLong("type"),rs.getLong("actual"),
+								rs.getLong("expected"), rs.getLong("totalTimeInSeconds"), null));
 						goalsMap.put(practiceName, newMap);
 					}
 				}
@@ -73,5 +72,69 @@ public class PracticeReportDao {
 			}
 		});
 		return result;
+	}
+
+	public Boolean postProgressReport(ProgressReport progressReport) {
+		String sql = "INSERT INTO stg_career_stats.training_record " +
+				"(type, " +
+				"practice, " +
+				"notes, " +
+				"time_spent_in_seconds) " +
+				"VALUES " +
+				"(:type, " +
+				":practice, " +
+				":notes, " +
+				":time_spent_in_seconds)";
+		
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put("type", progressReport.getTypeId());
+		parameters.put("practice", progressReport.getPracticeId());
+		parameters.put("notes", progressReport.getNotes());
+		parameters.put("time_spent_in_seconds", progressReport.getTimeSpent());
+		
+		int numberRowesAffected = namedJdbcTemplate.update(sql, parameters);
+		
+		return numberRowesAffected == 1;
+	}
+
+	public Map<Long, String> getPractices() {
+		String sql = 
+			"SELECT practice.id, " +
+			"    practice.name " +
+			"FROM stg_career_stats.practice";
+		
+		return namedJdbcTemplate.query(sql, new ResultSetExtractor<Map<Long, String>>(){
+
+			@Override
+			public Map<Long, String> extractData(ResultSet rs) throws SQLException, DataAccessException {
+				Map<Long, String> result = new HashMap<>();
+
+				while(rs.next()){
+					result.put(rs.getLong("id"), rs.getString("name"));
+				}
+				return result;
+			}
+			
+		});
+	}
+
+	public Map<Long, String> getTrainingTypes() {
+		String sql = 
+			"SELECT training_type.id, " +
+			"    training_type.type " +
+			"FROM stg_career_stats.training_type";
+
+		return namedJdbcTemplate.query(sql, new ResultSetExtractor<Map<Long, String>>() {
+
+			@Override
+			public Map<Long, String> extractData(ResultSet rs) throws SQLException, DataAccessException {
+				Map<Long, String> result = new HashMap<>();
+
+				while(rs.next()){
+					result.put(rs.getLong("id"), rs.getString("type"));
+				}
+				return result;
+			}
+		});
 	}
 }
