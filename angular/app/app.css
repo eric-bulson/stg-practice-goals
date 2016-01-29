@@ -1,0 +1,9 @@
+/* app css stylesheet */
+
+.error {
+  color : red;
+}
+
+.message {
+  color : green;
+}

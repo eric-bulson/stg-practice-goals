@@ -1,0 +1,30 @@
+<form name="practicegoal" ng-submit="submitPracticeGoal()">
+    <div class="error" ng-show="error">{{error}}</div>
+    <div class="message" ng-show="message">{{message}}</div>
+
+    <label>Practice</label>
+    <select ng-model="practicegoal.selectedPractice" ng-required="true" ng-options="key as p for (key, p) in practices">
+        <option value="">Select Practice</option>
+    </select>
+    <br/>
+
+    <label>Type</label>
+    <select ng-model="practicegoal.selectedType" ng-required="true" ng-options="key as t for (key, t) in types">
+        <option value="">Select Type</option>
+    </select>
+    <br/>
+
+    <label>Notes</label>
+    <input type="text" ng-model="practicegoal.note" ng-maxlength="2048"/>
+    <br/>
+
+    <div ng-show="practicegoal.timeInSeconds.$dirty && practicegoal.timeInSeconds.$invalid">
+        Error:
+        <span>Must be a number</span>
+    </div>
+    <label>Time in Seconds</label>
+    <input type="text" ng-model="practicegoal.timeInSeconds" ng-pattern="/^[0-9]{1,7}$/"/>
+    <br/>
+
+    <button type="submit" ng-disabled="practicegoal.$invalid">Submit</button>
+</form>
