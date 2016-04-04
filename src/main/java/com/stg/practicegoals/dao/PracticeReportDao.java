@@ -36,10 +36,10 @@ public class PracticeReportDao {
 					"count(*) actual, " + 
 					"sum(time_spent_in_seconds) totalTimeInSeconds, " + 
 					"tg.goal expected " + 
-					"from stg_career_stats.training_record tr "	+ 
-					"join stg_career_stats.training_goals tg on tr.type = tg.type "	+ 
-					"join stg_career_stats.practice p on tr.practice = p.id " + 
-					"join stg_career_stats.training_type tt on tr.type = tt.id " + 
+					"from training_record tr "	+ 
+					"join training_goals tg on tr.type = tg.type "	+ 
+					"join practice p on tr.practice = p.id " + 
+					"join training_type tt on tr.type = tt.id " + 
 					"group by tr.practice, tr.type";
 		GoalsReport result = namedJdbcTemplate.query(sql, new ResultSetExtractor<GoalsReport>() {
 
@@ -75,7 +75,7 @@ public class PracticeReportDao {
 	}
 
 	public Boolean postProgressReport(ProgressReport progressReport) {
-		String sql = "INSERT INTO stg_career_stats.training_record " +
+		String sql = "INSERT INTO training_record " +
 				"(type, " +
 				"practice, " +
 				"notes, " +
@@ -101,7 +101,7 @@ public class PracticeReportDao {
 		String sql = 
 			"SELECT practice.id, " +
 			"    practice.name " +
-			"FROM stg_career_stats.practice";
+			"FROM practice";
 		
 		return namedJdbcTemplate.query(sql, new ResultSetExtractor<Map<Long, String>>(){
 
@@ -122,7 +122,7 @@ public class PracticeReportDao {
 		String sql = 
 			"SELECT training_type.id, " +
 			"    training_type.type " +
-			"FROM stg_career_stats.training_type";
+			"FROM training_type";
 
 		return namedJdbcTemplate.query(sql, new ResultSetExtractor<Map<Long, String>>() {
 
