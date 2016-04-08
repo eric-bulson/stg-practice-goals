@@ -51,10 +51,10 @@ public class PracticeWebApplication {
 		// Create an in-memory H2 relational database containing some demo
 		// accounts.
 		DataSource dataSource = (new EmbeddedDatabaseBuilder())
-				.addScript("classpath:db/migrations/V1__stg_career_stats_practice.sql")
-		.addScript("classpath:db/migrations/V2__stg_career_stats_training_type.sql")
-		.addScript("classpath:db/migrations/V3__stg_career_stats_training_goals.sql")
-		.addScript("classpath:db/migrations/V4__stg_career_stats_training_record.sql")
+				.addScript("classpath:db/hsql/V1__stg_career_stats_practice.sql")
+		.addScript("classpath:db/hsql/V2__stg_career_stats_training_type.sql")
+		.addScript("classpath:db/hsql/V3__stg_career_stats_training_goals.sql")
+		.addScript("classpath:db/hsql/V4__stg_career_stats_training_record.sql")
 		.build();
 		
 		logger.info("dataSource = " + dataSource);
