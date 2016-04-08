@@ -40,7 +40,7 @@ public class PracticeDao {
 					"join training_goals tg on tr.type = tg.type "	+ 
 					"join practice p on tr.practice = p.id " + 
 					"join training_type tt on tr.type = tt.id " + 
-					"group by tr.practice, tr.type";
+					"group by tr.practice, tr.type, tt.type, p.name, tg.goal";
 		GoalsReport result = namedJdbcTemplate.query(sql, new ResultSetExtractor<GoalsReport>() {
 
 			@Override

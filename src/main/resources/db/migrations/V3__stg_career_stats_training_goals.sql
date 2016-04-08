@@ -8,16 +8,15 @@
 -- Table structure for table training_goals
 --
 
-DROP TABLE IF EXISTS training_goals;
+DROP TABLE training_goals IF EXISTS;
 
 CREATE TABLE training_goals (
-  id int(10) unsigned NOT NULL,
-  type int(10) unsigned NOT NULL,
-  goal int(10) unsigned DEFAULT NULL,
-  PRIMARY KEY (id),
-  UNIQUE KEY id_UNIQUE (id),
-  CONSTRAINT id FOREIGN KEY (id) REFERENCES training_type (id) ON DELETE NO ACTION ON UPDATE NO ACTION
+  id bigint identity primary key,
+  type integer NOT NULL,
+  goal integer DEFAULT 0,
 );
+
+ALTER TABLE training_goals ADD CONSTRAINT fk1 FOREIGN KEY (id) REFERENCES training_type(id);
 
 INSERT INTO training_goals VALUES (1,1,100),(2,2,200),(3,3,200);
 

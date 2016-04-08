@@ -4,11 +4,13 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.stg.practicegoals.model.GoalsReport;
+import com.stg.practicegoals.model.ProgressReport;
 
 /**
  * A RESTFul controller for accessing practice information.
@@ -23,7 +25,7 @@ public class PracticeController {
 	@Autowired
 	private PracticeService practiceService;
 
-	@RequestMapping(value = "/practiceresults", method = RequestMethod.GET)
+	@RequestMapping(value = "/practices/goalsreport", method = RequestMethod.GET)
 	public GoalsReport getPracticeReport() {
 		return practiceService.getGoalsReport();
 	}
@@ -31,5 +33,10 @@ public class PracticeController {
 	@RequestMapping(value = "/practices", method = RequestMethod.GET)
 	public Map<Long, String> getPractices() {
 		return practiceService.getPractices();
+	}
+	
+	@RequestMapping(value = "/practices/progressreport", method = RequestMethod.POST)
+	public Boolean postProgressReport(@RequestBody ProgressReport progressReport){
+		return practiceService.postProgressReport(progressReport);
 	}
 }
