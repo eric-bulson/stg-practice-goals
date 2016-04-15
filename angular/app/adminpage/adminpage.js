@@ -12,18 +12,26 @@ angular.module('myApp.adminpage', ['ngRoute'])
     .controller('AdminPageCtrl', function($scope, $http){
         $http({
             method: 'Get',
-            url: 'http://localhost:8080/api/v1/someotherapi/practices',
-            headers : {'Content-Type': 'application/json', 'Access-Control-Allow-Origin' : 'http://localhost:8080'}
+            url: 'http://stg-practice-goals-practice.cfapps.io/practices',
+            headers : {'Content-Type': 'application/json', 'Access-Control-Allow-Origin' : 'http://localhost:8000/app/'}
         }).then(function(response) {
             $scope.practices = response.data;
         });
 
         $http({
             method:'Get',
-            url: 'http://localhost:8080/api/v1/someotherapi/trainingtypes',
-            headers : {'Content-Type': 'application/json', 'Access-Control-Allow-Origin' : 'http://localhost:8080'}
+            url: 'http://stg-practice-goals-training.cfapps.io/trainingtypes',
+            headers : {'Content-Type': 'application/json', 'Access-Control-Allow-Origin' : 'http://localhost:8000/app/'}
         }).then(function(response) {
             $scope.types = response.data;
+        });
+        
+        $http({
+            method:'Get',
+            url: 'http://stg-practice-goals-practice.cfapps.io/practices/goalsreport',
+            headers : {'Content-Type': 'application/json', 'Access-Control-Allow-Origin' : 'http://localhost:8000/app/'}
+        }).then(function(response) {
+            $scope.goals = response.data;
         });
 
 
@@ -41,9 +49,9 @@ angular.module('myApp.adminpage', ['ngRoute'])
             // Posting data to php file
             $http({
                 method  : 'POST',
-                url     : 'http://localhost:8080/api/v1/someotherapi/goal',
+                url     : 'http://stg-practice-goals-practice.cfapps.io/practices/progressreport',
                 data    : submitGoal, //forms user object
-                headers : {'Content-Type': 'application/json', 'Access-Control-Allow-Origin' : 'http://localhost:8080'}
+                headers : {'Content-Type': 'application/json', 'Access-Control-Allow-Origin' : 'http://localhost:8000'}
             })
                 .success(function(data) {
                     if (data.errors) {
